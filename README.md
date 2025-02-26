@@ -1,3 +1,5 @@
+![snyk-oss-category](https://github.com/snyk-labs/oss-images/blob/main/oss-community.jpg)
+
 # K8s to Snyk
 
 `k8s-to-snyk` is a Python script that fetches container image names from a Kubernetes cluster and then maps them to orgs in Snyk. It then outputs the mapped images to a JSON file suitable for importing into Snyk via the [Snyk API import tool](https://github.com/snyk/snyk-api-import).
