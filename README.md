@@ -26,7 +26,7 @@
 1.  Clone the repository:
 
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/snyk-ps/k8s-to-snyk.git
     cd kubectl-images
     ```
 
