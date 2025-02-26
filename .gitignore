@@ -1,4 +1,5 @@
 venv
-config.local*
+config*local*
 imported-targets.json
 .DS_Store
+.vscode
