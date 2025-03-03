@@ -162,11 +162,13 @@ class Client:
         """Generates targets file for use by API Import Tool"""
         targets = []
         for image_data in images_data:
+            image_path = image_data["image"].split("/")
+            target = f"{image_path[-2]}/{image_path[-1]}"
             targets.append(
                 {
                     "orgId": image_data["orgId"],
                     "integrationId": image_data["integrationId"],
-                    "target": {"name": image_data["image"]},
+                    "target": target,
                 }
             )
         output_data = {"targets": targets}
