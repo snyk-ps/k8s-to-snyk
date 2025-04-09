@@ -168,7 +168,7 @@ class Client:
                 {
                     "orgId": image_data["orgId"],
                     "integrationId": image_data["integrationId"],
-                    "target": target,
+                    "target": {"name": target},
                 }
             )
         output_data = {"targets": targets}
