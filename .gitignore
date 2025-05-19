@@ -3,3 +3,4 @@ config*local*
 imported-targets.json
 .DS_Store
 .vscode
+.env

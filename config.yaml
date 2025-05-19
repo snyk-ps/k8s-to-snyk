@@ -6,9 +6,10 @@ snyk_org_mapping:
   default:
     snyk_integration_id: <snyk_integration_id>
     snyk_org_id: <snyk_org_id>
-  map_on: label # label or namespace
-  label: com.azure.dev.image.system.teamproject # if map_on is label
-  values:
+  map_on: image_label # image_label, image_name, or namespace
+  mapping_value_pattern: .* # use to extract substring from mapping value.
+  # image_label: app # if map_on is image_label
+  org_name_values:
     snyk_org_name_1:
       snyk_integration_id: <snyk_integration_id_1>
       snyk_org_id: <snyk_org_id_1>
