@@ -61,8 +61,8 @@ class Client:
             images = {}
             mapping = self.config_data.get("snyk_org_mapping")
             mapping_label = ""
-            if mapping.get("map_on") == "label":
-                mapping_label = mapping.get("label")
+            if mapping.get("map_on") == "image_label":
+                mapping_label = mapping.get("image_label")
 
             for pod in pods.items:
                 label_value = ""
@@ -73,13 +73,13 @@ class Client:
                 for container in pod.spec.containers:
                     image_name = container.image
                     images[image_name] = {"namespace": pod.metadata.namespace}
-                    images[image_name].update({"label": label_value})
+                    images[image_name].update({"image_label": label_value})
 
                 if pod.spec.init_containers:
                     for init_container in pod.spec.init_containers:
                         image_name = init_container.image
                         images[image_name] = {"namespace": pod.metadata.namespace}
-                        images[image_name].update({"label": label_value})
+                        images[image_name].update({"image_label": label_value})
             return images
 
         except client.exceptions.ApiException as e:
@@ -131,13 +131,21 @@ class Client:
 
         snyk_data = None
         map_on = snyk_mapping.get("map_on")
-        if map_on == "label":
-            label_value = image[1].get("label")
-            snyk_data = snyk_mapping.get("values").get(label_value)
+        mapping_value_pattern = snyk_mapping.get("mapping_value_pattern")
 
+        if map_on == "image_label":
+            mapping_value = image[1].get("image_label")
         elif map_on == "namespace":
-            namespace_value = image[1].get("namespace")
-            snyk_data = snyk_mapping.get("values").get(namespace_value)
+            mapping_value = image[1].get("namespace")
+        elif map_on == "image_name":
+            mapping_value = image_name
+
+        if mapping_value_pattern:
+            match = re.match(mapping_value_pattern, mapping_value)
+            if match:
+                mapping_value = match.group(1)
+
+        snyk_data = snyk_mapping.get("org_name_values").get(mapping_value)
 
         if snyk_data:
             return {

@@ -50,9 +50,9 @@ snyk_org_mapping:
   default:
     snyk_integration_id: <snyk_integration_id>
     snyk_org_id: <snyk_org_id>
-  map_on: "label" # 'label' or "namespace"
-  label: "app" # if map_on is 'label'
-  values:
+  map_on: "image_label" # 'image_label', 'image_name', or "namespace"
+  image_label: "app" # if map_on is 'image_label'
+  org_name_values:
     snyk_org_name_1:
       snyk_integration_id: <snyk_integration_id_1>
       snyk_org_id: <snyk_org_id_1>
@@ -68,8 +68,9 @@ targets_file_output_path: "./imported-targets.json"
   - `default`: Optional: Configuration for mapping to a default org in Snyk in cases where no mapping exists for an image.
     - `snyk_integration_id`: Optional: Container registry integration ID of the default Snyk orginization.
     - `snyk_org_id`: Optional: Org ID of the the default Snyk orginization
-  - `map_on`: Required: Specifies the mapping method ("label" or "namespace").
-  - `label`: The label name to use for mapping (Required if `map_on` is "label").
+  - `map_on`: Required: Specifies the mapping method ("image_label", "image_name", or "namespace").
+  - `mapping_value_pattern`: Optional: Use regex to extract substring from mapping value.
+  - `image_label`: The label name to use for mapping (Required if `map_on` is "image_label").
   - `values`: Required: A dictionary mapping label values or namespaces to Snyk organization and integration IDs.
 - `targets_file_output_path`: Optional: The path to the output the targets file. Default is ./imported-targets.json
 
